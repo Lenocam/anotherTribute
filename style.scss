@@ -1,0 +1,170 @@
+$Monza: #D30208;
+$Gold-Sand: #E5C685;
+$Janna: #F5EED5;
+$Rangoon-Green: #171714;
+$Orient: #015386;
+$Deep-Cerulean: #0074B1;
+$Cod-Gray: #1D1D1D;
+@mixin stopFlicker {
+	// -webkit-backface-visibility: hidden;
+	// -webkit-transform-style: preserve-3d;
+	// -webkit-transform:translate3d(0,0,0);
+	// -webkit-transform: translateZ(0);
+	// -webkit-backface-visibility: hidden;
+	// -webkit-perspective: 1000;
+	transition: all 0.9s;
+}
+
+body,
+html {
+	background-color: $Rangoon-Green;
+	min-height: 100vh;
+	margin: 0;
+	font-family: 'Droid Sans', sans-serif;
+	display: grid;
+}
+
+#main {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(6,1fr);
+	grid-template-rows: repeat(4 minmax(100px, auto));
+	margin: 0;
+	height: 100%;
+
+	header {
+		order: 1;
+		z-index: 1;
+		position: sticky;
+		top: 0;
+		display: grid;
+		grid-column: 1 / 7;
+		grid-template-columns: repeat(12,1fr);
+		margin-top: 0;
+		background-color: $Rangoon-Green;
+		@include stopFlicker;
+
+		#image {
+			margin-top: 20px;
+			margin-left: 20px;
+			width: 100px;
+			height: auto;
+			@include stopFlicker;
+		}
+
+		#img-caption {
+			visibility: hidden;
+		}
+
+		h1 {
+			margin-top: 50px;
+			margin-left: 10px;
+			font-size: 4em;
+			justify-self: start;
+			color: $Janna;
+			@include stopFlicker;
+
+			&::before {
+				content: "";
+				background-color: $Deep-Cerulean;
+				display: block;
+				width: auto;
+				height: 10px;
+				// transition: height 1.2s;
+				@include stopFlicker;
+			}
+
+			&::after {
+				content: "";
+				background-color: $Monza;
+				display: block;
+				width: auto;
+				height: 10px;
+				// transition: height 1.2s;
+				@include stopFlicker;
+			}
+		}
+	}
+
+	article {
+		display: grid;
+		grid-row-gap: 10px;
+		grid-column: 1 / 7;
+		grid-row: 2 / 3;
+		grid-row-gap: 20px;
+		padding-left: 5%;
+		padding-right: 5%;
+		color: $Janna;
+
+		.entry {
+			position: relative;
+			background-color: $Orient;
+			min-height: 150px;
+			max-height: 350px;
+			overflow: hidden;
+
+
+			img {
+				overflow: hidden;
+				width: 100%;
+				height: auto;
+			}
+
+			.content {
+				position: absolute;
+				bottom: -100%;
+				background: rgba(0,0,0,0.5);
+				color: $Gold-Sand;
+				width: 100%;
+				padding: 20px;
+				transition: bottom 0.9s ease-in;
+				p {
+					padding: 3%;
+				}
+			}
+		}
+	}
+
+	.entry:hover .content {
+		bottom: 0;
+		transition-delay: 0.2s;
+	}
+
+	footer {
+		grid-column: 2 / 6;
+		grid-row: 3 / 4;
+		font-size: 1em;
+		color: $Janna;
+	}
+}
+
+#main header.shrink {
+	#image {
+		width: 50px;
+		margin-left: 40px;
+	}
+
+	h1 {
+		margin-top: 20px;
+		margin-left: 10px;
+		font-size: 3em;
+		justify-self: start;
+
+		&::after,
+		&::before {
+			height: 5px;
+		}
+	}
+}
+// header to do
+// decide picture size for small are large screens
+// iniate @media starting with phone size screen
+// on scroll down make image and h1 smaller
+// on scroll up take image and h1 back to original size
+// animate transition in size
+// article to do
+// figure out structure for timeline
+//  dates that open further on hover or click(if on phone)
+//  line that moves between dates/boxes while scrolling
+// add images
+// animate
